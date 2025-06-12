@@ -18,7 +18,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('packages')
                 ->cascadeOnDelete();
-
             $table->string('icon')->nullable();
             $table->string('text')->nullable();
             $table->tinyInteger('order')->default(0);  // порядок отображения
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('attributes_package');
+        Schema::dropIfExists('package_attributes');
     }
 };

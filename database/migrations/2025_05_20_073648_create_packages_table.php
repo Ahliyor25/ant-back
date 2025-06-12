@@ -16,11 +16,15 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->decimal('monthly_price', 8, 2,)->default(0);
-            $table->decimal('yearly_price', 8, 2,)->default(0);
+            $table->decimal('monthly_price', 8, 2,)->default(0)->nullable();
+            $table->decimal('yearly_price', 8, 2,)->default(0)->nullable();
             $table->tinyInteger('order')
                 ->default(0)
                 ->nullable();
+            $table->foreignIdFor(\App\Models\Language::class)
+                ->references('id')
+                ->on('languages')
+                ->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -4,6 +4,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\KpFileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 */
+
+
 Route::post('/send-code', [\App\Http\Controllers\OtpController::class, 'phoneVerify']);
 Route::post('/send-code-email', [\App\Http\Controllers\OtpController::class, 'emailVerify']);
 
@@ -102,6 +107,59 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
         Route::delete('/{banner}', 'destroy');
     });
 
+    // Package
+    Route::controller(\App\Http\Controllers\PackageController::class)->prefix('packages')->group(function () {
+        Route::post('/', 'store');
+        Route::put('/{package}', 'update');
+        Route::delete('/{package}', 'destroy');
+    });
+
+    // PackageAttribute
+    Route::controller(\App\Http\Controllers\PackageAttrController::class)->prefix('package-attributes')->group(function () {
+        Route::post('/', 'store');
+        Route::put('/{packageAttribute}', 'update');
+        Route::delete('/{packageAttribute}', 'destroy');
+    });
+
+    // Promotion
+
+    Route::controller(\App\Http\Controllers\PromotionController::class)->prefix('promotions')->group(function () {
+        Route::post('/', 'store');
+        Route::put('/{promotion}', 'update');
+        Route::delete('/{promotion}', 'destroy');
+    });
+        // kp
+    Route::controller(\App\Http\Controllers\KpFileController::class)->prefix('kp')->group(function () {
+            Route::post('/', 'store');
+            Route::put('/{kpFile}', 'update');
+            Route::delete('/{kpFile}', 'destroy');
+        });
+
+    // region
+    Route::controller(\App\Http\Controllers\RegionController::class)->prefix('regions')->group(function () {
+        Route::post('/', 'store');
+        Route::put('/{region}', 'update');
+        Route::delete('/{region}', 'destroy');
+    });
+
+    Route::controller(\App\Http\Controllers\ServiceCenterController::class)->prefix('service-centers')->group(function () {
+        Route::post('/', 'store');
+        Route::put('/{serviceCenter}', 'update');
+        Route::delete('/{serviceCenter}', 'destroy');
+    });
+    Route::controller(\App\Http\Controllers\ServiceCenterController::class)->prefix('service-centers')->group(function () {
+        Route::post('/', 'store');
+        Route::put('/{serviceCenter}', 'update');
+        Route::delete('/{serviceCenter}', 'destroy');
+    });
+
+    Route::controller(\App\Http\Controllers\ContactInfoController::class)->prefix('contacts')->group(function () {
+        Route::post('/', 'store');
+        Route::put('/{contactInfo}', 'update');
+        Route::delete('/{contactInfo}', 'destroy');
+    });
+
+    
 
     //VacancyCategory
     Route::controller(\App\Http\Controllers\VacancyCategoryController::class)
@@ -155,6 +213,79 @@ Route::controller(\App\Http\Controllers\BannerController::class)->prefix('/banne
     Route::get('/{type}', 'show');
 });
 
+//Banner
+Route::controller(\App\Http\Controllers\BannerController::class)->prefix('/banners')->group(function () {
+    Route::get('/', 'index');
+    Route::get('/{type}', 'show');
+});
+
+// Package
+Route::controller(\App\Http\Controllers\PackageController::class)->prefix('/packages')->group(function () {
+    Route::get('/', 'index');
+    Route::get('/{package:slug}', 'show');
+});
+
+// PackageAttribute
+Route::controller(\App\Http\Controllers\PackageAttrController::class)->prefix('/package-attributes')->group(function () {
+    Route::get('/{package}', 'index');
+});
+
+//promotion
+Route::controller(\App\Http\Controllers\PromotionController::class)->prefix('/promotions')->group(function () {
+    Route::get('/', 'index');
+    Route::get('/get-by/{promotion:slug}','show');
+
+});
+
+// advertising rate
+Route::controller(\App\Http\Controllers\AdvertisingRateController::class)->prefix('/advertising-rates')->group(function () {
+    Route::post('/', 'store');
+    Route::put('/{advertisingRate}', 'update');
+    Route::delete('/{advertisingRate}', 'destroy');
+});
+
+//  PromotionCondition 
+
+Route::controller(\App\Http\Controllers\PromotionConditionController::class)->prefix('/promotion-contions')->group(function () {
+    Route::post('/', 'store');
+    Route::put('/{promotionCondition}', 'update');
+    Route::delete('/{promotionCondition}', 'destroy');
+});
+
+//  PromotionPrizes
+
+Route::controller(\App\Http\Controllers\PromotionPrizeController::class)->prefix('/promotion-prizes')->group(function () {
+    Route::post('/', 'store');
+    Route::put('/{promotionPrize}', 'update');
+    Route::delete('/{promotionPrize}', 'destroy');
+});
+
+//  PromotionDrawn
+
+Route::controller(\App\Http\Controllers\PromotionDrawController::class)->prefix('/promotion-draws')->group(function () {
+    Route::post('/', 'store');
+    Route::put('/{promotionDraw}', 'update');
+    Route::delete('/{promotionDraw}', 'destroy');
+});
+
+// PromotionNote
+
+Route::controller(\App\Http\Controllers\PromotionNoteController::class)->prefix('/promotion-notes')->group(function () {
+    Route::post('/', 'store');
+    Route::put('/{promotionNode}', 'update');
+    Route::delete('/{promotionNode}', 'destroy');
+});
+
+// PromotionWinner
+
+Route::controller(\App\Http\Controllers\PromotionWinnerController::class)->prefix('/promotion-winners')->group(function () {
+    Route::post('/', 'store');
+    Route::put('/{promotionWinner}', 'update');
+    Route::delete('/{promotionWinner}', 'destroy');
+});
+
+
+
 // VacancyCategory
 Route::get('/vacancy-categories', [\App\Http\Controllers\VacancyCategoryController::class, 'index']);
 Route::get('/vacancy-categories/{vacancyCategory}', [\App\Http\Controllers\VacancyCategoryController::class, 'show']);
@@ -167,6 +298,9 @@ Route::get('/vacancies/{vacancy:slug}', [\App\Http\Controllers\VacancyController
 
 // Project
 Route::get('/projects', [\App\Http\Controllers\ProjectController::class, 'index']);
+
+Route::get('/kp', [\App\Http\Controllers\KpFileController::class, 'index']);
+
 Route::get('/projects/{project:slug}', [\App\Http\Controllers\ProjectController::class, 'show']);
 
 // ProjectImage
@@ -175,4 +309,21 @@ Route::get('/project-images/{project:slug}', [\App\Http\Controllers\ProjectImage
 // Language
 Route::get('/languages', [\App\Http\Controllers\LanguageController::class, 'index']);
 
+Route::get('/regions', [\App\Http\Controllers\RegionController::class, 'index']);
 
+Route::get('/service-centers', [\App\Http\Controllers\ServiceCenterController::class, 'index']);
+
+Route::get('/contacts', [\App\Http\Controllers\ContactInfoController::class, 'index']);
+
+// AdvertisingRate
+Route::get('/advertising-rates', [\App\Http\Controllers\AdvertisingRateController::class, 'index']);
+
+Route::get('/promotion-contions', [\App\Http\Controllers\PromotionConditionController::class, 'index']);
+
+Route::get('/promotion-prizes', [\App\Http\Controllers\PromotionPrizeController::class, 'index']);
+
+Route::get('/promotion-draws', [\App\Http\Controllers\PromotionDrawController::class, 'index']);
+
+Route::get('/promotion-notes', [\App\Http\Controllers\PromotionNoteController::class, 'index']);
+
+Route::get('/promotion-winners', [\App\Http\Controllers\PromotionWinnerController::class, 'index']);
