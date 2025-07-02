@@ -275,6 +275,14 @@ Route::controller(\App\Http\Controllers\StatisticController::class)->prefix('/st
     Route::delete('/{statistic}', 'destroy');
 });
 
+// Advantage
+
+Route::controller(\App\Http\Controllers\AdvantageController::class)->prefix('/advantages')->group(function () {
+    Route::post('/', 'store');
+    Route::put('/{advantage}', 'update');
+    Route::delete('/{advantage}', 'destroy');
+});
+
 //  PromotionPrizes
 
 Route::controller(\App\Http\Controllers\PromotionPrizeController::class)->prefix('/promotion-prizes')->group(function () {
@@ -365,6 +373,11 @@ Route::get('/statistics', [\App\Http\Controllers\StatisticController::class, 'in
 Route::get('/channel-settings', [\App\Http\Controllers\ChannelSettingController::class, 'index']);
 Route::get('/channel-settings/{channelSetting}', [\App\Http\Controllers\ChannelSettingController::class, 'show']);
 
+
+// Advantage
+
+Route::get('/advantages', [\App\Http\Controllers\AdvantageController::class, 'index']);
+Route::get('/advantages/{advantage}', [\App\Http\Controllers\AdvantageController::class, 'show']);
 
 
 
