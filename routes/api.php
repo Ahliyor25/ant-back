@@ -225,6 +225,13 @@ Route::controller(\App\Http\Controllers\PackageController::class)->prefix('/pack
     Route::get('/{package:slug}', 'show');
 });
 
+// ChannelSetting
+Route::controller(\App\Http\Controllers\ChannelSettingController::class)->prefix('/channel-settings')->group(function () {
+    Route::post('/', 'store');
+    Route::put('/{channelSetting}', 'update');
+    Route::delete('/{channelSetting}', 'destroy');
+});
+
 // PackageAttribute
 Route::controller(\App\Http\Controllers\PackageAttrController::class)->prefix('/package-attributes')->group(function () {
     Route::get('/{package}', 'index');
@@ -250,6 +257,22 @@ Route::controller(\App\Http\Controllers\PromotionConditionController::class)->pr
     Route::post('/', 'store');
     Route::put('/{promotionCondition}', 'update');
     Route::delete('/{promotionCondition}', 'destroy');
+});
+
+// CompanyInfo
+
+Route::controller(\App\Http\Controllers\CompanyInfoController::class)->prefix('/company-infos')->group(function () {
+    Route::post('/', 'store');
+    Route::put('/{companyInfo}', 'update');
+    Route::delete('/{companyInfo}', 'destroy');
+});
+
+// Statistic
+
+Route::controller(\App\Http\Controllers\StatisticController::class)->prefix('/statistics')->group(function () {
+    Route::post('/', 'store');
+    Route::put('/{statistic}', 'update');
+    Route::delete('/{statistic}', 'destroy');
 });
 
 //  PromotionPrizes
@@ -327,3 +350,21 @@ Route::get('/promotion-draws', [\App\Http\Controllers\PromotionDrawController::c
 Route::get('/promotion-notes', [\App\Http\Controllers\PromotionNoteController::class, 'index']);
 
 Route::get('/promotion-winners', [\App\Http\Controllers\PromotionWinnerController::class, 'index']);
+
+// CompanyInfo
+
+Route::get('/company-infos', [\App\Http\Controllers\CompanyInfoController::class, 'index']);
+Route::get('/company-infos/{companyInfo}', [\App\Http\Controllers\CompanyInfoController::class, 'show']);
+
+// Statistic
+
+Route::get('/statistics', [\App\Http\Controllers\StatisticController::class, 'index']);
+
+// ChannelSetting
+
+Route::get('/channel-settings', [\App\Http\Controllers\ChannelSettingController::class, 'index']);
+Route::get('/channel-settings/{channelSetting}', [\App\Http\Controllers\ChannelSettingController::class, 'show']);
+
+
+
+

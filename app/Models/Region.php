@@ -15,6 +15,8 @@ class Region extends Model
         'name',
         'order',
         'language_id',
+        'latitude',
+        'longitude',
     ];
 
     public function centers() {
