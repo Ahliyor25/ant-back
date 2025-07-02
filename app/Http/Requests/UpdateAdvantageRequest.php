@@ -25,7 +25,7 @@ class UpdateAdvantageRequest extends FormRequest
             //
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'language_id' => 'required|exists:languages,id',
         ];
     }
