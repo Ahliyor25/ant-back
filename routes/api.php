@@ -121,6 +121,14 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
         Route::delete('/{packageAttribute}', 'destroy');
     });
 
+    // PackageFeature
+
+    Route::controller(\App\Http\Controllers\PackageFeatureController::class)->prefix('package-features')->group(function () {
+        Route::post('/', 'store');
+        Route::put('/{packageFeature}', 'update');
+        Route::delete('/{packageFeature}', 'destroy');
+    });
+
     // Promotion
 
     Route::controller(\App\Http\Controllers\PromotionController::class)->prefix('promotions')->group(function () {
@@ -259,6 +267,8 @@ Route::controller(\App\Http\Controllers\PromotionConditionController::class)->pr
     Route::delete('/{promotionCondition}', 'destroy');
 });
 
+
+
 // CompanyInfo
 
 Route::controller(\App\Http\Controllers\CompanyInfoController::class)->prefix('/company-infos')->group(function () {
@@ -379,5 +389,4 @@ Route::get('/channel-settings/{channelSetting}', [\App\Http\Controllers\ChannelS
 Route::get('/advantages', [\App\Http\Controllers\AdvantageController::class, 'index']);
 Route::get('/advantages/{advantage}', [\App\Http\Controllers\AdvantageController::class, 'show']);
 
-
-
+Route::get('/package-features/{package}', [\App\Http\Controllers\PackageFeatureController::class, 'index']);
