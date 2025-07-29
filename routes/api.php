@@ -68,6 +68,10 @@ Route::post('/abonent/discount', [AbonentController::class, 'discount']);
 Route::post('/callback/order', [AbonentController::class, 'callbackOrder']);
 Route::post('/payment/alif/init', [AbonentController::class, 'initAlifPayment']);
 
+Route::post('/abonent/paytemp', [AbonentController::class, 'payTemp']);
+
+Route::post('/zayavka/listtypes', [AbonentController::class, 'listZayavkaTypes']);
+
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/admins', [\App\Http\Controllers\UserController::class, 'admins']);
     Route::get('/roles', [\App\Http\Controllers\UserController::class, 'roles']);
