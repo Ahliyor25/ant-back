@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbonentController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
@@ -27,7 +28,6 @@ Route::post('/send-code-email', [\App\Http\Controllers\OtpController::class, 'em
     Route::post('/login-by-password', [\App\Http\Controllers\Auth\LoginController::class, 'loginByPassword']);
     Route::post('/admin-login', [\App\Http\Controllers\Auth\LoginController::class, 'adminLogin']);
     Route::post('/register', [RegisterController::class, 'register']);
-
 });
 
 Route::middleware('auth:sanctum')->prefix('user')->group(function () {
@@ -48,6 +48,25 @@ Route::middleware('auth:sanctum')->prefix('user')->group(function () {
 
 Route::post('/forgot-password/phone', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'resetPasswordWithPhone']);
 Route::post('/forgot-password/email', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'resetPasswordWithEmail']);
+
+
+Route::post('/abonent/mepassword', [AbonentController::class, 'mepassword']);
+Route::post('/abonent/meauth', [AbonentController::class, 'meauth']);
+Route::post('/abonent/cardadd', [AbonentController::class, 'cardadd']);
+Route::post('/cardbalance/get', [AbonentController::class, 'checkCardBalance']);
+
+Route::post('/abonent/listtarifV2', [AbonentController::class, 'listTarifV2']);
+
+Route::post('/abonent/listcard', [AbonentController::class, 'listCard']);
+Route::post('/abonent/tvchannellist', [AbonentController::class, 'tvChannelList']);
+Route::post('/abonent/changetarif', [AbonentController::class, 'changeTarif']);
+Route::post('/abonent/smslist', [AbonentController::class, 'smsList']);
+Route::post('/abonent/historylist', [AbonentController::class, 'historyList']);
+Route::post('/zayavka/add', [AbonentController::class, 'addZayavka']);
+Route::post('/abonent/discountlist', [AbonentController::class, 'discountList']);
+Route::post('/abonent/discount', [AbonentController::class, 'discount']);
+Route::post('/callback/order', [AbonentController::class, 'callbackOrder']);
+Route::post('/payment/alif/init', [AbonentController::class, 'initAlifPayment']);
 
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/admins', [\App\Http\Controllers\UserController::class, 'admins']);
@@ -167,7 +186,7 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
         Route::delete('/{contactInfo}', 'destroy');
     });
 
-    
+
 
     //VacancyCategory
     Route::controller(\App\Http\Controllers\VacancyCategoryController::class)
@@ -259,7 +278,7 @@ Route::controller(\App\Http\Controllers\AdvertisingRateController::class)->prefi
     Route::delete('/{advertisingRate}', 'destroy');
 });
 
-//  PromotionCondition 
+//  PromotionCondition
 
 Route::controller(\App\Http\Controllers\PromotionConditionController::class)->prefix('/promotion-contions')->group(function () {
     Route::post('/', 'store');
