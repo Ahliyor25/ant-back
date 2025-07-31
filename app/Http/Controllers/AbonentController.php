@@ -21,6 +21,7 @@ class AbonentController extends Controller
     public function meauth(Request $request)
     {
         $response = Http::post("{$this->baseUrl}/abonent/meauth", $request->all());
+
         return response()->json($response->json(), $response->status());
     }
 

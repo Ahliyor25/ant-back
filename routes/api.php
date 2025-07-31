@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AbonentController;
+use App\Http\Controllers\Api\SupportAbonentFaqController;
+use App\Http\Controllers\Api\SupportPageTextController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
@@ -86,6 +88,18 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
         Route::post('/', 'store');
         Route::put('/{category}', 'update');
         Route::delete('/{category}', 'destroy');
+    });
+
+    Route::prefix('support')->group(function () {
+        // Верхний текст
+
+        Route::put('/page-text', [SupportPageTextController::class, 'update']);
+
+        // FAQ
+
+        Route::post('/faq', [SupportAbonentFaqController::class, 'store']);
+        Route::put('/faq/{faq}', [SupportAbonentFaqController::class, 'update']);
+        Route::delete('/faq/{faq}', [SupportAbonentFaqController::class, 'destroy']);
     });
 
 
@@ -401,11 +415,9 @@ Route::get('/statistics', [\App\Http\Controllers\StatisticController::class, 'in
 
 Route::get('/channel-settings', [\App\Http\Controllers\ChannelSettingController::class, 'index']);
 Route::get('/channel-settings/{channelSetting}', [\App\Http\Controllers\ChannelSettingController::class, 'show']);
-
-
 // Advantage
-
 Route::get('/advantages', [\App\Http\Controllers\AdvantageController::class, 'index']);
 Route::get('/advantages/{advantage}', [\App\Http\Controllers\AdvantageController::class, 'show']);
-
 Route::get('/package-features/{package}', [\App\Http\Controllers\PackageFeatureController::class, 'index']);
+Route::get('/support/faq', [SupportAbonentFaqController::class, 'index']);
+Route::get('/support/page-text', [SupportPageTextController::class, 'show']);
