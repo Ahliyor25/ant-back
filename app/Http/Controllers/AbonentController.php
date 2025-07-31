@@ -27,7 +27,26 @@ class AbonentController extends Controller
 
     public function cardadd(Request $request)
     {
-        $response = Http::post("{$this->baseUrl}/abonent/cardadd", $request->all());
+    function normalizeArray($array)
+    {
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $array[$key] = normalizeArray($value);
+            } elseif (is_null($value)) {
+                $array[$key] = '';
+            }
+        }
+
+        return $array;
+    }
+
+        $data = normalizeArray($request->all());
+
+        // dd($data);
+
+        $response = Http::post("{$this->baseUrl}/abonent/cardadd", $data);
+
+     
         return response()->json($response->json(), $response->status());
     }
 
@@ -127,6 +146,18 @@ class AbonentController extends Controller
     public function listTarifV2(Request $request)
     {
         $response = Http::post("{$this->baseUrl}/abonent/listtarifV2", $request->all());
+        return response()->json($response->json(), $response->status());
+    }
+
+    public function payTemp(Request $request)
+    {
+        $response = Http::post("{$this->baseUrl}/abonent/paytemp", $request->all());
+        return response()->json($response->json(), $response->status());
+    }
+
+    public function listZayavkaTypes(Request $request)
+    {
+        $response = Http::post("{$this->baseUrl}/zayavka/listtypes", $request->all());
         return response()->json($response->json(), $response->status());
     }
 }
