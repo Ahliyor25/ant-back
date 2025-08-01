@@ -60,24 +60,22 @@ class KpFileController extends Controller
         $data = [
             'title' => $request->input('title'),
         ];
-    
+
 
         if ($request->hasFile('file')) {
 
             $newPath = $request->file('file')->store('images/kp');
-    
+
 
             if ($kpFile->file) {
                 Storage::delete($kpFile->file);
             }
-    
-            // Добавляем новый путь к файлу в массив обновлений
+
             $data['file'] = $newPath;
         }
-    
-        // Обновляем модель
+
         $kpFile->update($data);
-    
+
         return response()->json([
             'message' => 'updated',
             'data' => $kpFile,
@@ -94,9 +92,9 @@ class KpFileController extends Controller
         if ($kpFile->file && \Storage::exists($kpFile->file)) {
             \Storage::delete($kpFile->file);
         }
-    
+
         $kpFile->delete();
-    
+
         return response()->json([
             'message' => 'deleted',
         ], 200);

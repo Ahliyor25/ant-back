@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('support_abonent_faqs', function (Blueprint $table) {
+        Schema::create('agreements', function (Blueprint $table) {
             $table->id();
-            $table->string('question');
-            $table->text('answer')->nullable();
+            $table->string('file');
             $table->foreignIdFor(\App\Models\Language::class)
                 ->constrained('languages')
                 ->cascadeOnDelete();
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('support_abonent_faqs');
+        Schema::dropIfExists('agreement');
     }
 };

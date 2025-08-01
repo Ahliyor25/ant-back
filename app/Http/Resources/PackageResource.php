@@ -25,6 +25,9 @@ class PackageResource extends JsonResource
             'order' => $this->order,
             'attributes' => PackageAttrResource::collection($this->package_attributes),
             'slug' => $this->slug,
+            'discount' => $this->discount,
+            'type_connection' => $this->type_connection,
+            'type' => $this->type,
             'created_at' => $this->created_at,
         ];
     }

@@ -15,10 +15,10 @@ class PackageController extends Controller
      */
     public function index(Request $request)
     {
-        //
         return PackageResource::collection(
             Package::currentLang()->orderBy('order')
-            ->paginate($request->per_page)
+            ->type($request->type, 'standard')
+            ->paginate($request->input('per_page', 10))
         );
     }
 
@@ -29,11 +29,14 @@ class PackageController extends Controller
     {
         //
         $image = $request->file('image')->store('images/packages');
-    
+
         Package::query()->create([
             'name' => $request->name,
             'description' => $request->input('description'),
             'image' => $image,
+            'type_connection' => $request->input('type_connection', 'on_connect'),
+            'type' => $request->input('type', 'standard'),
+            'discount' => $request->input('discount', 0),
             'monthly_price' => $request->input('monthly_price'),
             'yearly_price' => $request->input('yearly_price'),
             'order' => $request->input('order'),

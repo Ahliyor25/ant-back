@@ -28,6 +28,9 @@ class UpdatePackageRequest extends FormRequest
             'monthly_price' => 'nullable|numeric|min:0',
             'yearly_price' => 'nullable|numeric|min:0',
             'order' => 'nullable|integer',
+            'type_connection' => 'nullable:in:on_connect,on_use',
+            'type' => 'nullable|in:standard,discount',
+            'discount' => 'nullable|numeric|min:0|max:100',
         ];
     }
 }

@@ -18,8 +18,11 @@ class Package extends Model
         'yearly_price',
         'order',
         'language_id',
+        'type_connection',
+        'type',
+        'discount',
     ];
-    
+
     public function language()
     {
         return $this->belongsTo(Language::class);
@@ -35,6 +38,12 @@ class Package extends Model
     return $this->hasMany(PackageAttribute::class);
     }
 
+    //find by type standard or discount
+    public function scopeType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
     public function sluggable(): array
     {
         return [
@@ -43,5 +52,7 @@ class Package extends Model
             ]
         ];
     }
+
+
 
 }

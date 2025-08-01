@@ -106,6 +106,11 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
         Route::delete('/faq/{faq}', [SupportAbonentFaqController::class, 'destroy']);
     });
 
+    // Agreement
+    Route::controller(\App\Http\Controllers\Api\AgreementController::class)->prefix('agreements')->group(function () {
+        Route::post('/', 'store');
+        Route::put('/', 'update');
+    });
 
     // order call
     Route::controller(\App\Http\Controllers\OrderCallController::class)->prefix('order-call')->group(function () {
@@ -425,3 +430,6 @@ Route::get('/advantages/{advantage}', [\App\Http\Controllers\AdvantageController
 Route::get('/package-features/{package}', [\App\Http\Controllers\PackageFeatureController::class, 'index']);
 Route::get('/support/faq', [SupportAbonentFaqController::class, 'index']);
 Route::get('/support/page-text', [SupportPageTextController::class, 'show']);
+
+// Agreement
+Route::get('/agreements', [\App\Http\Controllers\Api\AgreementController::class, 'index']);
