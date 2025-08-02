@@ -21,7 +21,6 @@ use App\Http\Controllers\KpFileController;
 | be assigned to the "api" middleware group. Make something great!
 */
 
-
 Route::post('/send-code', [\App\Http\Controllers\OtpController::class, 'phoneVerify']);
 Route::post('/send-code-email', [\App\Http\Controllers\OtpController::class, 'emailVerify']);
 
@@ -98,9 +97,7 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
         // Верхний текст
 
         Route::put('/page-text', [SupportPageTextController::class, 'update']);
-
         // FAQ
-
         Route::post('/faq', [SupportAbonentFaqController::class, 'store']);
         Route::put('/faq/{faq}', [SupportAbonentFaqController::class, 'update']);
         Route::delete('/faq/{faq}', [SupportAbonentFaqController::class, 'destroy']);
@@ -111,36 +108,6 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
         Route::post('/', 'store');
         Route::put('/', 'update');
     });
-
-    // order call
-    Route::controller(\App\Http\Controllers\OrderCallController::class)->prefix('order-call')->group(function () {
-        Route::put('/{order_call}', 'update');
-        Route::delete('/{order_call}', 'destroy');
-        Route::get('/', 'index');
-        Route::get('/{order_call}', 'show');
-    });
-
-    // payment methods
-    Route::controller(\App\Http\Controllers\PaymentMethodController::class)->prefix('payment-methods')->group(function () {
-        Route::post('/', 'store');
-        Route::put('/{paymentMethod}', 'update');
-        Route::delete('/{paymentMethod}', 'destroy');
-    });
-    // shipping methods
-    Route::controller(\App\Http\Controllers\ShippingTypeController::class)->prefix('shipping-types')->group(function () {
-        Route::post('/', 'store');
-        Route::put('/{shippingType}', 'update');
-        Route::delete('/{shippingType}', 'destroy');
-    });
-
-    // ShippingLocation
-    Route::controller(\App\Http\Controllers\ShippingLocationController::class)
-        ->prefix('/shipping-locations')
-        ->group(function () {
-            Route::post('/', 'store');
-            Route::put('/{shippingLocation}', 'update');
-            Route::delete('/{shippingLocation}', 'destroy');
-        });
 
     // Banner
     Route::controller(\App\Http\Controllers\BannerController::class)->prefix('banners')->group(function () {
@@ -172,7 +139,6 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
     });
 
     // Promotion
-
     Route::controller(\App\Http\Controllers\PromotionController::class)->prefix('promotions')->group(function () {
         Route::post('/', 'store');
         Route::put('/{promotion}', 'update');
@@ -210,7 +176,6 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
     });
 
 
-
     //VacancyCategory
     Route::controller(\App\Http\Controllers\VacancyCategoryController::class)
         ->prefix('/vacancy-categories')
@@ -228,46 +193,16 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
             Route::put('/{vacancy}', 'update');
             Route::delete('/{vacancy}', 'destroy');
         });
-
-
-    // Project
-    Route::controller(\App\Http\Controllers\ProjectController::class)
-        ->prefix('projects')
-        ->group(function () {
-            Route::post('/', 'store');
-            Route::put('/{project}', 'update');
-            Route::delete('/{project}', 'destroy');
-        });
-
-    // ProjectImage
-    Route::controller(\App\Http\Controllers\ProjectImageController::class)
-        ->prefix('project-images')
-        ->group(function () {
-            Route::post('/', 'store');
-            Route::put('/{projectImage}', 'update');
-            Route::delete('/{projectImage}', 'destroy');
-        });
 });
 
 // no guard
 
-// OrderCall
-Route::controller(\App\Http\Controllers\OrderCallController::class)->prefix('/order-call')->group(function () {
-    Route::post('/', 'store');
-});
-
-
 //Banner
 Route::controller(\App\Http\Controllers\BannerController::class)->prefix('/banners')->group(function () {
     Route::get('/', 'index');
     Route::get('/{type}', 'show');
 });
 
-//Banner
-Route::controller(\App\Http\Controllers\BannerController::class)->prefix('/banners')->group(function () {
-    Route::get('/', 'index');
-    Route::get('/{type}', 'show');
-});
 
 // Package
 Route::controller(\App\Http\Controllers\PackageController::class)->prefix('/packages')->group(function () {
@@ -308,8 +243,6 @@ Route::controller(\App\Http\Controllers\PromotionConditionController::class)->pr
     Route::put('/{promotionCondition}', 'update');
     Route::delete('/{promotionCondition}', 'destroy');
 });
-
-
 
 // CompanyInfo
 
@@ -367,28 +300,7 @@ Route::controller(\App\Http\Controllers\PromotionWinnerController::class)->prefi
     Route::delete('/{promotionWinner}', 'destroy');
 });
 
-
-
-// VacancyCategory
-Route::get('/vacancy-categories', [\App\Http\Controllers\VacancyCategoryController::class, 'index']);
-Route::get('/vacancy-categories/{vacancyCategory}', [\App\Http\Controllers\VacancyCategoryController::class, 'show']);
-
-// Vacancy
-Route::get('/vacancies', [\App\Http\Controllers\VacancyController::class, 'index']);
-Route::post('/vacancies/lead', [\App\Http\Controllers\VacancyRequestController::class, 'sendMessage']);
-Route::get('/vacancies/{vacancy:slug}', [\App\Http\Controllers\VacancyController::class, 'show']);
-
-
-// Project
-Route::get('/projects', [\App\Http\Controllers\ProjectController::class, 'index']);
-
 Route::get('/kp', [\App\Http\Controllers\KpFileController::class, 'index']);
-
-Route::get('/projects/{project:slug}', [\App\Http\Controllers\ProjectController::class, 'show']);
-
-// ProjectImage
-Route::get('/project-images/{project:slug}', [\App\Http\Controllers\ProjectImageController::class, 'index']);
-
 // Language
 Route::get('/languages', [\App\Http\Controllers\LanguageController::class, 'index']);
 
