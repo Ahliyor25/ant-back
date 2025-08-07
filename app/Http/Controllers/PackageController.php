@@ -64,8 +64,25 @@ class PackageController extends Controller
     {
         //
 
-        $package->update($request->validated());
-        return new PackageResource($package);
+          if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('images/packages');
+            $package->image = $image;
+          }
+
+        $package->name = $request->input('name');
+        $package->description = $request->input('description');
+        $package->type_connection = $request->input('type_connection', 'on_connect');
+        $package->type = $request->input('type', 'standard');
+        $package->discount = $request->input('discount', 0);
+        $package->monthly_price = $request->input('monthly_price');
+        $package->yearly_price = $request->input('yearly_price');
+        $package->order = $request->input('order');
+        $package->language_id = $request->input('language_id');
+        $package->save();
+        return response()->json([
+            'message' => 'Package updated successfully',
+            'package' => new PackageResource($package)
+        ], 200);
     }
 
     /**
