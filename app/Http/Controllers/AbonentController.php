@@ -46,7 +46,7 @@ class AbonentController extends Controller
 
         $response = Http::post("{$this->baseUrl}/abonent/cardadd", $data);
 
-     
+
         return response()->json($response->json(), $response->status());
     }
 
@@ -138,8 +138,7 @@ class AbonentController extends Controller
         ];
 
         $response = Http::withHeaders($headers)
-            ->post('https://test-web.alif.tj/v2/', $payload);
-
+            ->post('https://web.alif.tj', $payload);
         return response()->json($response->json(), $response->status());
     }
 
