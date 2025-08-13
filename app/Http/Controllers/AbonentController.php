@@ -138,7 +138,17 @@ class AbonentController extends Controller
         ];
 
         $response = Http::withHeaders($headers)
-            ->post('https://web.alif.tj', $payload);
+            ->post('https://web.alif.tj/v2', $payload);
+
+        // log the response for debugging
+        Log::info('Alif Payment Response:', [
+            'status' => $response->status(),
+            'body' => $response->json(),
+            'request' => $payload,
+            'headers' => $headers,
+            'response' => $response
+        ]);
+
         return response()->json($response->json(), $response->status());
     }
 
