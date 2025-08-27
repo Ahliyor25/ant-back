@@ -57,7 +57,7 @@ Route::post('/abonent/cardadd', [AbonentController::class, 'cardadd']);
 Route::post('/cardbalance/get', [AbonentController::class, 'checkCardBalance']);
 
 Route::post('/abonent/listtarifV2', [AbonentController::class, 'listTarifV2']);
-
+Route::post('/abonent/vklnaostatok', [AbonentController::class, 'vklnaostatok']);
 Route::post('/abonent/listcard', [AbonentController::class, 'listCard']);
 Route::post('/abonent/tvchannellist', [AbonentController::class, 'tvChannelList']);
 Route::post('/abonent/changetarif', [AbonentController::class, 'changeTarif']);
@@ -176,23 +176,6 @@ Route::middleware(['auth:sanctum', 'role:admin,manager'])->group(function () {
     });
 
 
-    //VacancyCategory
-    Route::controller(\App\Http\Controllers\VacancyCategoryController::class)
-        ->prefix('/vacancy-categories')
-        ->group(function () {
-            Route::post('/', 'store');
-            Route::put('/{vacancyCategory}', 'update');
-            Route::delete('/{vacancyCategory}', 'destroy');
-        });
-
-    //Vacancy
-    Route::controller(\App\Http\Controllers\VacancyController::class)
-        ->prefix('/vacancies')
-        ->group(function () {
-            Route::post('/', 'store');
-            Route::put('/{vacancy}', 'update');
-            Route::delete('/{vacancy}', 'destroy');
-        });
 });
 
 // no guard

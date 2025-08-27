@@ -25,6 +25,12 @@ class AbonentController extends Controller
         return response()->json($response->json(), $response->status());
     }
 
+    public function vklnaostatok(Request $request)
+    {
+        $response = Http::post("{$this->baseUrl}/abonent/vklnaostatok", $request->all());
+        return response()->json($response->json(), $response->status());
+    }
+
     public function cardadd(Request $request)
     {
     function normalizeArray($array)
@@ -139,6 +145,7 @@ class AbonentController extends Controller
 
         $response = Http::withHeaders($headers)
             ->post('https://web.alif.tj/v2/', $payload);
+<<<<<<< HEAD
         // log the response for debugging
         Log::info('Alif Payment Response:', [
             'status' => $response->status(),
@@ -148,6 +155,8 @@ class AbonentController extends Controller
             'response' => $response
         ]);
 
+=======
+>>>>>>> 1774e870827df3e351bb1fb8d38033a67c6fe0f4
         return response()->json($response->json(), $response->status());
     }
 
